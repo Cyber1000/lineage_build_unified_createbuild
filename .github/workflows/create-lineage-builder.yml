@@ -30,8 +30,8 @@ jobs:
     - name: Execute Action
       run: |
         cd ~/android/lineage
-        ~/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs
-        ~/bin/repo sync --depth 1
+        ~/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
+        ~/bin/repo sync
 
     - name: Cleanup
       run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
