@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
     - name: Prepare Action
       run: |
         apt-get update
