@@ -19,6 +19,7 @@ runs:
         mkdir -p $CheckoutDir/bin && mkdir -p $CheckoutDir/android/lineage
         curl https://storage.googleapis.com/git-repo-downloads/repo > $CheckoutDir/bin/repo
         chmod a+x $CheckoutDir/bin/repo
+        echo "$CheckoutDir/bin" >> $GITHUB_PATH
       shell: bash
 
     - name: Show info
