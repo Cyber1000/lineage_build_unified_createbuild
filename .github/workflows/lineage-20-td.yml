@@ -9,11 +9,11 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      run: |
+        ls -lisa ./.github/workflows/
 
     - name: Use Base Workflow
       uses: ./.github/workflows/create-lineage-builder.yml
-
 
     - name: Execute Action
       run: |
