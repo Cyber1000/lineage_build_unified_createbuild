@@ -10,10 +10,16 @@ jobs:
     steps:
     - name: Deletes
       run: |
-        sudo rm -rf /opt/hostedtoolcache
-        sudo rm -rf /usr/local/share/chromium
-        sudo rm -rf /opt/microsoft/
-        ls -lisa /opt
+       sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-chrome-stable firefox powershell microsoft-edge-stable mono-devel 
+       sudo apt-get autoremove -y
+       sudo apt-get clean      
+       sudo rm -rf /opt/hostedtoolcache
+       sudo rm -rf /usr/local/share/chromium
+       sudo rm -rf /opt/microsoft/
+       sudo rm -rf /opt/actionarchivecache
+       sudo rm -rf /opt/google
+       sudo rm -rf /opt/mssql-tools
+       sudo rm -rf /opt/pipx*
 
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
