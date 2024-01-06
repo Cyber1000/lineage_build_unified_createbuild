@@ -13,7 +13,10 @@ jobs:
 
     - name: List files
       run: |
-        ls -lisaR .
+        pwd
+        ls /home/runner/work/lineage_build_unified_createbuild/lineage_build_unified_createbuild/.github/workflows/create-lineage-builder.yml
+        ls ./.github/workflows/create-lineage-builder.yml
+        
 
     - name: Use Base Workflow
       uses: ./.github/workflows/create-lineage-builder.yml
