@@ -4,23 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
+  call-workflow:
+    uses: ./.github/workflows/create-lineage-builder.yml
   build:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: List files
-      run: |
-        pwd
-        ls /home/runner/work/lineage_build_unified_createbuild/lineage_build_unified_createbuild/.github/workflows/create-lineage-builder.yml
-        ls ./.github/workflows/create-lineage-builder.yml
-        
-
-    - name: Use Base Workflow
-      uses: ./.github/workflows/create-lineage-builder.yml
-
     - name: Execute Action
       run: |
         cd /root/android/lineage
