@@ -24,6 +24,8 @@ runs:
       run: |
         cd ~/android/lineage
         ~/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
+        ls -lisa  ~
+        ls -lisa  ~/android/lineage
         patch ~/android/lineage/.repo/repo/git_command.py < ~/patches/git_command.patch
         ~/bin/repo sync -c
       shell: bash
