@@ -19,11 +19,13 @@ runs:
         chmod a+x ~/bin/repo
       shell: bash
 
-
-    - name: Execute Action
+    - name: Show info
       run: |
         ls -lisa /mnt
         df -h
+
+    - name: Execute Action
+      run: |
         cd ~/android/lineage
         ~/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
         patch ~/android/lineage/.repo/repo/git_command.py < $GITHUB_WORKSPACE/patches/git_command.patch
