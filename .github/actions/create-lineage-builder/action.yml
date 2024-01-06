@@ -21,7 +21,6 @@ runs:
 
     - name: Show info
       run: |
-        ls -lisa /mnt
         df -h
       shell: bash
 
