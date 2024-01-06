@@ -17,6 +17,7 @@ runs:
         mkdir -p ~/bin && mkdir -p ~/android/lineage
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
+      shell: bash
 
 
     - name: Execute Action
@@ -24,6 +25,8 @@ runs:
         cd ~/android/lineage
         ~/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
         ~/bin/repo sync -c
+      shell: bash
 
     - name: Cleanup
       run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+      shell: bash
