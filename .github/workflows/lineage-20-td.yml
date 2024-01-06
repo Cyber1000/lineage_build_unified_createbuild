@@ -7,10 +7,15 @@ jobs:
   call-workflow:
     uses: ./.github/workflows/create-lineage-builder.yml
   build:
-    needs: call-workflow
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Run prerequisites
+      uses: ./.github/actions/create-lineage-builder.yml
+
     - name: Execute Action
       run: |
         cd /root/android/lineage

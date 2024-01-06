@@ -1,16 +1,8 @@
 name: Create Lineage Builder
 
-on:
-  workflow_call:
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
+runs:
+  using: composite
+  steps:
     - name: Prepare Action
       run: |
         sudo apt-get update
