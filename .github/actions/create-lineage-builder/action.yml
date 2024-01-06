@@ -23,6 +23,7 @@ runs:
       run: |
         ls -lisa /mnt
         df -h
+      shell: bash
 
     - name: Execute Action
       run: |
