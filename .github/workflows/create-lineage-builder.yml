@@ -1,0 +1,33 @@
+name: Create Lineage Builder
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu/manticore
+
+    steps:
+    - name: Prepare Action
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends bc bison build-essential ccache curl flex g++-multilib gcc-multilib git git-lfs gnupg gperf imagemagick lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev python-is-python3 wget ca-certificates openssh-client
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2_amd64.deb && dpkg -i libtinfo5_6.4-2_amd64.deb && rm -f libtinfo5_6.4-2_amd64.deb
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.4-2_amd64.deb && dpkg -i libncurses5_6.4-2_amd64.deb && rm -f libncurses5_6.4-2_amd64.deb
+        git lfs install
+        mkdir -p ~/bin && mkdir -p ~/android/lineage
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        export PATH="$HOME/bin:$PATH"
+
+
+    - name: Execute Action
+      run: |
+        cd ~/android/lineage
+        repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs
+        repo sync
+
+    - name: Cleanup
+      run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
