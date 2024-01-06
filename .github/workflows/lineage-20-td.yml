@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Prepare Action
-      uses: ./.github/actions/create-lineage-builder
+    - name: Use Base Workflow
+      uses: ./.github/workflows/create-lineage-builder.yml
 
 
     - name: Execute Action
