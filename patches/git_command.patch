@@ -1,0 +1,10 @@
+--- .repo/repo/git_command.py   2024-01-06 20:15:40.061976548 +0100
++++ ../git_command.py   2024-01-06 20:16:26.970406401 +0100
+@@ -328,6 +328,7 @@
+         if sys.stderr.isatty() and command_name in ("fetch", "clone"):
+             if "--progress" not in cmdv and "--quiet" not in cmdv:
+                 command.append("--progress")
++            command.append("--depth=1")
+         command.extend(cmdv[1:])
+
+         event_log = (
