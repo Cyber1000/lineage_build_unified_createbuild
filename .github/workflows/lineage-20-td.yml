@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Checkout Repository
       run: |
-        ls -lisa ./.github/workflows/
+        ls -lisaR .
 
     - name: Use Base Workflow
       uses: ./.github/workflows/create-lineage-builder.yml
