@@ -24,14 +24,13 @@ jobs:
         mkdir -p ~/bin && mkdir -p ~/android/lineage
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
-        export PATH="$HOME/bin:$PATH"
 
 
     - name: Execute Action
       run: |
         cd ~/android/lineage
-        repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs
-        repo sync
+        /root/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs
+        /root/bin/repo sync
 
     - name: Cleanup
       run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
