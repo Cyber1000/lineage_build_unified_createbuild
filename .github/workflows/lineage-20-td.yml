@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Prepare Action
-      uses: create-lineage-builder
+      uses: ./.github/actions/create-lineage-builder
 
 
     - name: Execute Action
