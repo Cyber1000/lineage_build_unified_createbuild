@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Run prerequisites
-      uses: ./.github/actions/create-lineage-builder.yml
+      uses: ./.github/actions/create-lineage-builder
 
     - name: Execute Action
       run: |
