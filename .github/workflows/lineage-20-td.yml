@@ -8,6 +8,13 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Deletes
+      run: |
+        sudo rm -rf /opt/hostedtoolcache
+        sudo rm -rf /usr/local/share/chromium
+        sudo rm -rf /opt/microsoft/
+        ls -lisa /opt
+
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
       with:
@@ -18,9 +25,6 @@ jobs:
          remove-haskell: 'true'
          remove-codeql: 'true'
          remove-docker-images: 'true'
-    
-    - name: Deletes
-      run: sudo rm -rf /opt/hostedtoolcache
 
     - name: Checkout
       uses: actions/checkout@v4
