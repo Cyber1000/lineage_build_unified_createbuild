@@ -26,6 +26,10 @@ runs:
         df -h
       shell: bash
 
+    - name: Cleanup
+      run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+      shell: bash
+
     - name: Execute Action
       run: |
         cd $CheckoutDir/android/lineage
@@ -34,6 +38,7 @@ runs:
         $CheckoutDir/bin/repo sync -c
       shell: bash
 
-    - name: Cleanup
-      run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+    - name: Show info again
+      run: |
+        df -h
       shell: bash
