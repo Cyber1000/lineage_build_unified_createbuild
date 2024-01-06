@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Get Big files
+      run: |
+        sudo find / -type f -exec du -h {} + | sort -rh | head -n 10
+        exit 0
+        
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
       with:
