@@ -10,17 +10,24 @@ jobs:
     steps:
     - name: Deletes
       run: |
+       df -h
        sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-chrome-stable firefox powershell microsoft-edge-stable mono-devel 
        sudo apt-get autoremove -y
        sudo apt-get clean
        sudo rm -rf /var/lib/apt/lists/* 
-      #  sudo rm -rf /opt/hostedtoolcache
-      #  sudo rm -rf /usr/local/share/chromium
-      #  sudo rm -rf /opt/microsoft/
-      #  sudo rm -rf /opt/actionarchivecache
-      #  sudo rm -rf /opt/google
-      #  sudo rm -rf /opt/mssql-tools
-      #  sudo rm -rf /opt/pipx*
+       sudo rm -rf /opt/hostedtoolcache
+       sudo rm -rf /usr/local/games
+       sudo rm -rf /usr/local/sqlpackage
+       sudo rm -rf /usr/local/.ghcup
+       sudo rm -rf /usr/local/share/powershell
+       sudo rm -rf /usr/local/share/edge_driver
+       sudo rm -rf /usr/local/share/gecko_driver
+       sudo rm -rf /usr/local/share/chromium
+       sudo rm -rf /usr/local/share/chromedriver-linux64
+       sudo rm -rf /usr/local/share/vcpkg
+       sudo rm -rf /usr/local/lib/python3.10
+       sudo rm -rf /usr/local/lib/node_modules
+       sudo rm -rf /opt/mssql-tools
 
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
@@ -37,7 +44,8 @@ jobs:
         sudo du --max-depth=2 -h /opt/hostedtoolcache 2>/dev/null
         sudo du --max-depth=2 -h /usr/local 2>/dev/null
         sudo du --max-depth=2 -h /opt 2>/dev/null
-        exit 0
+        df -h
+        exit 1
 
     - name: Checkout
       uses: actions/checkout@v4
