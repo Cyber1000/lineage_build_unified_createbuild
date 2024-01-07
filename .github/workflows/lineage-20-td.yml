@@ -57,8 +57,8 @@ jobs:
          remove-docker-images: 'true'
     - name: Show
       run: |
-        sudo du -sBM /usr/share 2>/dev/null | sort -n 
-        sudo du -sBM /usr/lib 2>/dev/null | sort -n
+        sudo du -sBM /usr/share/* 2>/dev/null | sort -n 
+        sudo du -sBM /usr/lib/* 2>/dev/null | sort -n
         sudo apt list --manual-installed
         df -h
 
