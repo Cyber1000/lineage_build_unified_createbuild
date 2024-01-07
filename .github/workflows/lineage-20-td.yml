@@ -13,7 +13,7 @@ jobs:
        df -h
        # sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-chrome-stable firefox powershell microsoft-edge-stable mono-devel
        sudo apt-get purge -y '^llvm-.*' azure-cli powershell mono-devel
-       removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker*' | tr '\n' ' '`
+       removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker-*|containerd.io' | tr '\n' ' '`
        echo "Removing following userinstalled packages: $removePackages"
        sudo apt-get purge -y $removePackages
       # sudo apt-get autoremove -y
