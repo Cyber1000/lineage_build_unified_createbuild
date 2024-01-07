@@ -42,9 +42,7 @@ jobs:
          remove-docker-images: 'true'
     - name: Show
       run: |
-        #sudo du --max-depth=2 -h /opt/hostedtoolcache 2>/dev/null
-        sudo du --max-depth=2 -h /usr/local 2>/dev/null
-        sudo du --max-depth=2 -h /opt 2>/dev/null
+        sudo du --max-depth=2 -h / 2>/dev/null
         df -h
 
     - name: Exit
