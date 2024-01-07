@@ -8,13 +8,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: SetCPULimit
-      run: |
-       cpuCores=`nproc --all`
-       cpuLimit=$(( $cpuCores*95 ))
-       echo "Limiting cpu at build-process to $cpuLimit percent on $cpuCores cores"
-       echo "cpuLimit=$cpuLimit" >> $GITHUB_ENV
-
     - name: Show available size
       run: df -h
 
@@ -71,7 +64,7 @@ jobs:
       uses: easimon/maximize-build-space@master
       with:
          root-reserve-mb: 512
-         swap-size-mb: 10240
+         swap-size-mb: 16384
          remove-android: 'true'
          remove-dotnet: 'true'
          remove-haskell: 'true'
@@ -92,7 +85,7 @@ jobs:
         cd $CheckoutDir/android/lineage
         git clone https://github.com/AndyCGYan/lineage_build_unified lineage_build_unified -b lineage-20-td
         git clone https://github.com/AndyCGYan/lineage_patches_unified lineage_patches_unified -b lineage-20-td
-        cpulimit -l $cpuLimit -f -m -- bash lineage_build_unified/buildbot_unified.sh treble 64VS
+        bash lineage_build_unified/buildbot_unified.sh treble 64VS
 
     - name: Download of build-output
       uses: actions/download-artifact@v2
