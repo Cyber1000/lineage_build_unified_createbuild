@@ -11,13 +11,13 @@ jobs:
     - name: Info
       run: |
        cpuCores=`nproc --all`
-       limitedCPU=$(( 100*cpuCores=0.9 ))
+       limitedCPU=$(( 100*cpuCores*0.9 ))
        echo $cpuCores
        echo $limitedCPU
       
     - name: Exitstep
       run: exit 1
-      
+
     - name: Show available size
       run: df -h
 
