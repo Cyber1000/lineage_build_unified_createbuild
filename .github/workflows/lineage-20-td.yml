@@ -29,6 +29,7 @@ jobs:
        sudo rm -rf /usr/local/lib/node_modules
        sudo rm -rf /usr/local/julia1.9.4
        sudo rm -rf /opt/mssql-tools
+       sudo rm -rf /etc/skel
 
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
@@ -42,7 +43,8 @@ jobs:
          remove-docker-images: 'true'
     - name: Show
       run: |
-        sudo du --max-depth=2 -h / 2>/dev/null
+        sudo du --max-depth=2 -h /usr/share 2>/dev/null
+        sudo du --max-depth=2 -h /usr/lib 2>/dev/null
         df -h
 
     - name: Exit
