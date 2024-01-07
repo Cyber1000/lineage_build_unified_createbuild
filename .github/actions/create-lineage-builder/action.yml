@@ -37,7 +37,7 @@ runs:
         cd $CheckoutDir/android/lineage
         repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
         patch $CheckoutDir/android/lineage/.repo/repo/git_command.py < $CheckoutDir/patches/git_command.patch
-        repo sync -c
+        repo sync -c -n -j4 && repo sync -c -l -j16
       shell: bash
 
     - name: Show hdd size again
