@@ -20,11 +20,12 @@ runs:
         curl https://storage.googleapis.com/git-repo-downloads/repo > $CheckoutDir/bin/repo
         chmod a+x $CheckoutDir/bin/repo
         echo "$CheckoutDir/bin" >> $GITHUB_PATH
+        git config --global user.email "fake@localhost.local"
+        git config --global user.name "fake"
       shell: bash
 
-    - name: Show info
-      run: |
-        df -h
+    - name: Show hdd size
+      run: df -h
       shell: bash
 
     - name: Cleanup
@@ -34,12 +35,11 @@ runs:
     - name: Execute Action
       run: |
         cd $CheckoutDir/android/lineage
-        $CheckoutDir/bin/repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
-        patch $CheckoutDir/android/lineage/.repo/repo/git_command.py < $GITHUB_WORKSPACE/patches/git_command.patch
-        $CheckoutDir/bin/repo sync -c
+        repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
+        patch $CheckoutDir/android/lineage/.repo/repo/git_command.py < $CheckoutDir/patches/git_command.patch
+        repo sync -c
       shell: bash
 
-    - name: Show info again
-      run: |
-        df -h
+    - name: Show hdd size again
+      run: df -h
       shell: bash
