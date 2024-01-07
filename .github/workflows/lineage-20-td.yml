@@ -17,9 +17,6 @@ jobs:
        echo "Removing following userinstalled packages: $removePackages"
        sudo apt-get purge -y $removePackages
        sudo apt-get clean && sudo apt-get autoremove --purge -y $(dpkg -l | grep '^rc' | awk '{print $2}') && sudo rm -rf /var/lib/apt/lists/* 
-      # sudo apt-get autoremove -y
-      # sudo apt-get clean
-      # sudo rm -rf /var/lib/apt/lists/* 
       #  sudo rm -rf /opt/hostedtoolcache
       #  sudo rm -rf /usr/local/games
       #  sudo rm -rf /usr/local/sqlpackage
@@ -75,10 +72,10 @@ jobs:
          remove-docker-images: 'true'
     - name: Show
       run: |
-        sudo du -sBM /usr/local/* 2>/dev/null | sort -n 
+        sudo du -sBM /usr/local/share/* 2>/dev/null | sort -n 
         sudo du -sBM /usr/share/* 2>/dev/null | sort -n 
         sudo du -sBM /usr/lib/* 2>/dev/null | sort -n
-        sudo du -sBM /opt* 2>/dev/null | sort -n
+        sudo du -sBM /opt/* 2>/dev/null | sort -n
         sudo apt list --manual-installed
         df -h
 
