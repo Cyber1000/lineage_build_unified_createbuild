@@ -16,6 +16,7 @@ jobs:
        removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker-*|containerd.io' | tr '\n' ' '`
        echo "Removing following userinstalled packages: $removePackages"
        sudo apt-get purge -y $removePackages
+       sudo apt-get clean && sudo apt-get autoremove --purge -y $(dpkg -l | grep '^rc' | awk '{print $2}') && sudo rm -rf /var/lib/apt/lists/* 
       # sudo apt-get autoremove -y
       # sudo apt-get clean
       # sudo rm -rf /var/lib/apt/lists/* 
