@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Deletes
+    - name: Show available size
+      run: df -h
+
+    - name: Delete Everything not needed
       run: |
-       df -h
        sudo apt-get purge -y '^llvm-.*' azure-cli powershell mono-devel
-       removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker-*|containerd.io' | tr '\n' ' '`
+       removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker-*|containerd.io|python*' | tr '\n' ' '`
        echo "Removing following userinstalled packages: $removePackages"
        sudo apt-get purge -y $removePackages
        sudo apt-get clean && sudo apt-get autoremove --purge -y $(dpkg -l | grep '^rc' | awk '{print $2}') && sudo rm -rf /var/lib/apt/lists/* 
@@ -26,7 +28,6 @@ jobs:
        sudo rm -rf /usr/local/share/chromium
        sudo rm -rf /usr/local/share/chromedriver-linux64
        sudo rm -rf /usr/local/share/vcpkg
-       sudo rm -rf /usr/local/lib/python*
        sudo rm -rf /usr/local/lib/node_modules
        sudo rm -rf /usr/local/julia*
        sudo rm -rf /opt/mssql-tools
@@ -69,17 +70,9 @@ jobs:
          remove-haskell: 'true'
          remove-codeql: 'true'
          remove-docker-images: 'true'
-    - name: Show
-      run: |
-        sudo du -sBM /usr/local/* 2>/dev/null | sort -n 
-        sudo du -sBM /usr/share/* 2>/dev/null | sort -n 
-        sudo du -sBM /usr/lib/* 2>/dev/null | sort -n
-        sudo du -sBM /opt/* 2>/dev/null | sort -n
-        sudo apt list --manual-installed
-        df -h
 
-    - name: Exit
-      run: exit 1
+    - name: Show available size again
+      run: df -h
 
     - name: Checkout
       uses: actions/checkout@v4
