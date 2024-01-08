@@ -11,7 +11,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Run prerequisites
+    - name: Cleanup
       uses: ./.github/actions/cleanup-runner
 
     - name: Checkout
