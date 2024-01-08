@@ -42,9 +42,8 @@ runs:
       shell: bash
 
     - name: Show hdd size again
-      run: df -h
-      shell: bash
-
-    - name: ExitThis
-      run: exit 1
+      run: |
+        echo $OUT
+        sudo du -h --max-depth=1 $CheckoutDir/android/lineage/
+        df -h
       shell: bash

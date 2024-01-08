@@ -80,6 +80,9 @@ jobs:
     - name: Run prerequisites
       uses: ./.github/actions/create-lineage-builder
 
+    - name: ExitThis
+      run: exit 1
+
     - name: Execute Action
       run: |
         cd $CheckoutDir/android/lineage
