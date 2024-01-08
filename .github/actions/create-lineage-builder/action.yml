@@ -24,10 +24,6 @@ runs:
         git config --global user.name "fake"
       shell: bash
 
-    - name: Show hdd size
-      run: df -h
-      shell: bash
-
     - name: Cleanup
       run: sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
       shell: bash
@@ -37,13 +33,12 @@ runs:
         cd $CheckoutDir/android/lineage
         repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --depth 1 --git-lfs
         patch $CheckoutDir/android/lineage/.repo/repo/git_command.py < $CheckoutDir/patches/git_command.patch
-        repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
-        #repo sync -c -n -j$(nproc --all) && repo sync -c -l -j16
+        #repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+        repo sync -c -n -j$(nproc --all) && repo sync -c -l -j16
       shell: bash
 
-    - name: Show hdd size again
+    - name: Show Info
       run: |
         echo $OUT
         sudo du -h --max-depth=1 $CheckoutDir/android/lineage/
-        df -h
       shell: bash

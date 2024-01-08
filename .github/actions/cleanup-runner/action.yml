@@ -1,0 +1,72 @@
+name: Cleanup runner
+
+runs:
+  using: composite
+  steps:
+    - name: Show available size
+      run: df -h
+
+    - name: Delete Everything not needed
+      run: |
+       sudo apt-get purge -y '^llvm-.*' azure-cli powershell mono-devel
+       removePackages=`apt list --manual-installed | awk '{print $1}' | sed 's|\(.*\)/.*|\1|' | grep -E -v 'base*|bash|binutils|bsdutils|bzip2|ca-certificates|coreutils|curl|dbus|diffutils|dpkg*|file|findutils|git*|grep|gzip|hostname|init|iproute2|iputils-ping|keyutils|lib*|linux-headers*|linux-image*|lld*|locales|login|lsb-release|make|net-tools|openssh-*|openssl|patchelf|rpm|rsync|session-manager-plugin|shellcheck|ssh|sudo|sysvinit-utils|tar|tcl*|time|tk|tzdata|ubuntu-*|unzip|upx-ucl|walinuxagent|wget|xz-utils|zip*|zsync|apt|dash|ncurses-bin|shim-signed|grub-efi-*|mokutil|sbsigntool|secureboot-db|docker-*|containerd.io|python*' | tr '\n' ' '`
+       echo "Removing following userinstalled packages: $removePackages"
+       sudo apt-get purge -y $removePackages
+       sudo apt-get clean && sudo apt-get autoremove --purge -y $(dpkg -l | grep '^rc' | awk '{print $2}') && sudo rm -rf /var/lib/apt/lists/* 
+       sudo rm -rf /opt/hostedtoolcache
+       sudo rm -rf /usr/local/games
+       sudo rm -rf /usr/local/sqlpackage
+       sudo rm -rf /usr/local/.ghcup
+       sudo rm -rf /usr/local/share/powershell
+       sudo rm -rf /usr/local/share/edge_driver
+       sudo rm -rf /usr/local/share/gecko_driver
+       sudo rm -rf /usr/local/share/chromium
+       sudo rm -rf /usr/local/share/chromedriver-linux64
+       sudo rm -rf /usr/local/share/vcpkg
+       sudo rm -rf /usr/local/lib/node_modules
+       sudo rm -rf /usr/local/julia*
+       sudo rm -rf /opt/mssql-tools
+       sudo rm -rf /etc/skel
+       sudo rm -rf /usr/share/vim
+       sudo rm -rf /usr/share/postgresql
+       sudo rm -rf /usr/share/man
+       sudo rm -rf /usr/share/apache-maven-*
+       sudo rm -rf /usr/share/R
+       sudo rm -rf /usr/share/alsa
+       sudo rm -rf /usr/share/miniconda
+       sudo rm -rf /usr/share/grub
+       sudo rm -rf /usr/share/gradle-*
+       sudo rm -rf /usr/share/locale
+       sudo rm -rf /usr/share/texinfo
+       sudo rm -rf /usr/share/kotlinc
+       sudo rm -rf /usr/share/swift
+       sudo rm -rf /usr/share/doc
+       sudo rm -rf /usr/share/az_9.3.0
+       sudo rm -rf /usr/share/sbt
+       sudo rm -rf /usr/share/ri
+       sudo rm -rf /usr/share/icons
+       sudo rm -rf /usr/share/java
+       sudo rm -rf /usr/share/fonts
+       sudo rm -rf /usr/lib/google-cloud-sdk
+       sudo rm -rf /usr/lib/jvm
+       sudo rm -rf /usr/lib/mono
+       sudo rm -rf /usr/lib/R
+       sudo rm -rf /usr/lib/postgresql
+       sudo rm -rf /usr/lib/heroku
+       sudo rm -rf /usr/lib/gcc
+      shell: bash
+
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+         root-reserve-mb: 512
+         swap-size-mb: 16384
+         remove-android: 'true'
+         remove-dotnet: 'true'
+         remove-haskell: 'true'
+         remove-codeql: 'true'
+         remove-docker-images: 'true'
+
+    - name: Show available size again
+      run: df -h
+      shell: bash
