@@ -66,6 +66,7 @@ runs:
          remove-haskell: 'true'
          remove-codeql: 'true'
          remove-docker-images: 'true'
+      shell: bash
 
     - name: Show available size again
       run: df -h
