@@ -23,9 +23,6 @@ jobs:
     - name: Show available size
       run: df -h
 
-    - name: ExitThis
-      run: exit 1
-
     - name: Execute Action
       run: |
         cd $CheckoutDir/android/lineage
