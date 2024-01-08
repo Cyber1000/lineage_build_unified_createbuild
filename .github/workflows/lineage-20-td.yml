@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Run prerequisites
-      uses: ./.github/actions/cleanup runner
+      uses: ./.github/actions/cleanup-runner
 
     - name: Checkout
       uses: actions/checkout@v4
